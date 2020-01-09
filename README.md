@@ -4,6 +4,12 @@ Clonar el repositorio y en directorio ejecutar.
 
 En el directorio del proyecto, puede ejecutar:
 ## npm start
+
+Clonar el repositorio y en directorio ejecutar.
+## npm install
+
+En el directorio del proyecto, puede ejecutar:
+#npm start
 Ejecuta la aplicación en modo de desarrollo.
 Abra http://localhost:8000 para verlo en el navegador.
 
