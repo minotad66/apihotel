@@ -1,7 +1,7 @@
 # apihotel
 
 Clonar el repositorio y en directorio ejecutar.
-** #npm install **
+**** #npm install
 
 En el directorio del proyecto, puede ejecutar:
 #npm start
