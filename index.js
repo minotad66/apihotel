@@ -1,18 +1,30 @@
-var app = require('express')();
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
-var port = process.env.PORT || 3000;
+const express = require("express");
+const app = express();
+const path = require("path");
 
-app.get('/', function(req, res){
-  res.sendFile(__dirname + '/index.html');
+//setting
+app.set("port", process.env.PORT || 8000);
+
+//static files
+app.use(express.static(path.join(__dirname, "public")));
+
+//start the server
+const server = app.listen(app.get("port"), () => {
+  console.log("server on port", app.get("port"));
 });
 
-io.on('connection', function(socket){
-  socket.on('chat message', function(msg){
-    io.emit('chat message', msg);
+//socket
+const SocketIo = require("socket.io");
+const io = SocketIo(server);
+
+//web socket
+io.on("connection", socket => {
+  console.log("new connection", socket.id);
+  socket.on("chat:message", data => {
+    io.sockets.emit('chat:message', data)
   });
-});
-
-http.listen(port, function(){
-  console.log('listening on *:' + port);
+  socket.on('chat:typing', (data) => {
+      socket.broadcast.emit('chat:typing', data)
+      
+  })
 });
