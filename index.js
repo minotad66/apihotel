@@ -1,11 +1,18 @@
-'use strict'
+var app = require('express')();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+var port = process.env.PORT || 3000;
 
-const initApp = require('./src/app')
-const port = process.env.PORT || 8000
+app.get('/', function(req, res){
+  res.sendFile(__dirname + '/index.html');
+});
 
-const app = initApp()
+io.on('connection', function(socket){
+  socket.on('chat message', function(msg){
+    io.emit('chat message', msg);
+  });
+});
 
-app.listen(port, () => console.log('server runing'))
-
-process.on('uncaughtException', () => console.log('Error: uncaughtException'))
-process.on('unhandledRejection', () => console.log('Error: unhandledRejection'))
+http.listen(port, function(){
+  console.log('listening on *:' + port);
+});
