@@ -17,7 +17,7 @@ const server = app.listen(app.get("port"), () => {
 
 //socket
 const SocketIo = require("socket.io");
-const io = SocketIo(server);
+const io = SocketIo.listen(server);
 
 //web socket
 io.on("connection", socket => {
